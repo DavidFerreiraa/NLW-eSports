@@ -1,22 +1,18 @@
+import './styles/main.css'
+import logoImg from './assets/logo-nlw-esports.svg'
 //JSX => JavaScript + XML (HTML)
 //Components and props
-interface ButtonProps {
-  title: String; //Para que a propriedade não seja obrigatória basta colocar uma "?" antes dos ":" de seleção da propriedade
-}
 
-function Button(props: ButtonProps) {
-  return(
-    <button>
-      {props.title}
-    </button>
-  )
-}
 function App() {
   return(
-    <div>
-      <Button title="1"/>
-      <Button title="2"/>
-      <Button title="3"/>
+    <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
+      <img src={logoImg} alt=""></img>
+      <h1 className="text-7xl text-white font-black mt-20">
+        Seu <span className="bg-nlw-gradient text-transparent bg-clip-text">duo</span> está aqui.
+      </h1>
+      <div className='grid grid-cols-6 gap-6'>
+        
+      </div>
     </div>
   )
 }
