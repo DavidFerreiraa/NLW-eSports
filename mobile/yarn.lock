@@ -1083,6 +1083,11 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     "to-fast-properties" "^2.0.0"
 
+"@expo-google-fonts/inter@^0.2.2":
+  "integrity" "sha512-dU6mSczI2xkRZbUhQQ5VB+D4AqLOF8ufCIfA1iBjrPZ/Qnka88E5Ez2Mvm41exdKR76norVvYD5GJIQYEEoO/Q=="
+  "resolved" "https://registry.npmjs.org/@expo-google-fonts/inter/-/inter-0.2.2.tgz"
+  "version" "0.2.2"
+
 "@expo/bunyan@^4.0.0", "@expo/bunyan@4.0.0":
   "integrity" "sha512-Ydf4LidRB/EBI+YrB+cVLqIseiRfjUI/AeHBgjGMtq3GroraDu81OV7zqophRgupngoL3iS3JUMDMnxO7g39qA=="
   "resolved" "https://registry.npmjs.org/@expo/bunyan/-/bunyan-4.0.0.tgz"
@@ -4423,10 +4428,10 @@
     "@expo/config-plugins" "~5.0.0"
     "uuid" "^3.4.0"
 
-"expo-font@~10.2.0":
-  "integrity" "sha512-2V4EcpmhNoppaLn+lPprZVS+3bmV9hxLPKttKh2u8ghjH/oX9bv3u4JVo77SYh0EfrWO4toqVyXn8pXH8GpbIg=="
-  "resolved" "https://registry.npmjs.org/expo-font/-/expo-font-10.2.0.tgz"
-  "version" "10.2.0"
+"expo-font@^10.2.1", "expo-font@~10.2.0":
+  "integrity" "sha512-sxy5GrdtY+Ka8Wo5wnrcFFeO6MbYC6Dris5wMLqshvVK6BneJNMUsFvwRfvVgg0TzsmMAc3Rlca2xyZ8ettinw=="
+  "resolved" "https://registry.npmjs.org/expo-font/-/expo-font-10.2.1.tgz"
+  "version" "10.2.1"
   dependencies:
     "fontfaceobserver" "^2.1.0"
 
