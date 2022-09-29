@@ -1,6 +1,9 @@
-import { ImageBackground, ImageSourcePropType, TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import { ImageBackground, ImageSourcePropType, TouchableOpacity, TouchableOpacityProps, Text} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 import { styles } from './styles';
+import { THEME } from '../../theme';
 
 export interface GameCardProps {
     id: string,
@@ -19,7 +22,19 @@ export function GameCard({data, ...rest }: Props) {
         <ImageBackground
         style={styles.cover}
         source={data.cover}
-        />
+        >
+        <LinearGradient 
+        colors={THEME.COLORS.FOOTER}
+        style={styles.footer}
+        >
+            <Text style={styles.name}>
+                {data.name}
+            </Text>
+            <Text style={styles.ads}>
+                {data.ads} anúncios
+            </Text>
+        </LinearGradient>
+    </ImageBackground>
     </TouchableOpacity>
   );
 }
