@@ -9,8 +9,8 @@ export function Background({children}: Props) {
   return (
     <ImageBackground 
     source={backgroundImg}
-    style={styles.container}
     defaultSource={backgroundImg} //Acelera o carregamento da imagem - memoriza a imagem padrão
+    style={styles.container}
     >
         { children }
     </ImageBackground>
