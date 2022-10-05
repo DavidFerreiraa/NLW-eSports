@@ -2,16 +2,34 @@ import express from 'express'
 
 const app = express();
 
-app.get('/ads', (request, response) => {
-    // console.log('Acessou Ads!')
-    // O mais correto é retornar um json
-    //Hoppescot(Online), insomnia(LocalHost)
+/**
+ * Query: .../ads?...
+ * Route: .../ads/5... - Identificador
+ * Body: ... - Envio de formulários e informações sensíveis
+ */
+
+app.get('/games', (request, response) => {
     return response.json([
-        { id: 1, name: 'Anúncio 1' },
-        { id: 2, name: 'Anúncio 2' },
-        { id: 3, name: 'Anúncio 3' },
-        { id: 4, name: 'Anúncio 4' },
-        { id: 5, name: 'Anúncio 5' },
+
+    ])
+})
+
+app.post('/ads', (request, response) => {
+    response.status(201).json([
+
+    ])
+})
+
+app.get('/games/:id/ads', (request, response) => {
+    //uscar anúncios específicos
+    const gameId = request.params.id;
+    return response.send(gameId)
+})
+
+app.get('/ads/:id/discord', (request, response) => {
+    
+    return response.json([
+
     ])
 })
 
