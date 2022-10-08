@@ -1,9 +1,14 @@
 import express from 'express'
+import cors from 'cors';
+
 import { PrismaClient } from '@prisma/client';
 import { covertStringHourToMinute } from './utils/covert-stringHours-to-minutes';
+import convertMinutesToHourString from './utils/convert-minutes-to-hour-string';
 
 const app = express();
 app.use(express.json())
+app.use(cors()) //Defina aqui quais domínios poderão acessar o backend usando {origin: <dominio>}
+
 const prisma = new PrismaClient()
 
 /**
@@ -26,6 +31,7 @@ app.get('/games', async (request, response) => {
 })
 
 app.post('/games/:gameId/ads', async (request, response) => {
+
     const gameId = request.params.gameId;
     const body:any = request.body;
 
@@ -42,7 +48,7 @@ app.post('/games/:gameId/ads', async (request, response) => {
         },
     })
 
-    return response.status(201).json(body)
+    return response.status(201).json(ad)
 })
 
 app.get('/games/:id/ads', async (request, response) => {
@@ -66,10 +72,13 @@ app.get('/games/:id/ads', async (request, response) => {
             createdAt: 'desc'
         }
     })
+
     return response.json(ads.map(ads =>  {
         return {
             ...ads,
-            weekDays: ads.weekDays.split(',')
+            weekDays: ads.weekDays.split(','),
+            hoursStart: convertMinutesToHourString(ads.hoursStart),
+            hourEnd: convertMinutesToHourString(ads.hourEnd)
         }
     }))
 })
