@@ -1,4 +1,4 @@
-import { View, Image, FlatList } from 'react-native';
+import { View, Image, FlatList, SafeAreaView } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import { styles } from './styles';
@@ -6,8 +6,6 @@ import { styles } from './styles';
 import LogoImg from '../../assets/logo-nlw-esports.png'
 import { Heading } from '../../components/Heading';
 import { GameCard } from '../../components/GameCard';
-
-import { GAMES } from '../../utils/games';
 
 interface Games {
   bannerURL: string;
@@ -28,7 +26,7 @@ export function Home() {
     })
   }, []);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
         <Image 
         source={LogoImg}
         style={styles.logo}
@@ -48,6 +46,6 @@ export function Home() {
         horizontal={true}
         contentContainerStyle={styles.contentList}
         />
-    </View>
+    </SafeAreaView>
   );
 }
