@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons'
@@ -59,7 +59,16 @@ export function Game() {
             title={game.title}
             subtitle='Conecte-se e comece a jogar!'
             />
-            <DuoCard data={ads[0]}/>
+            <FlatList
+            data={ads}
+            keyExtractor={item => item.id}
+            horizontal={true}
+            renderItem={({ item }) => (
+                <DuoCard
+                data={item}
+                />
+              )}
+            />
         </SafeAreaView>
     </Background>
   );
