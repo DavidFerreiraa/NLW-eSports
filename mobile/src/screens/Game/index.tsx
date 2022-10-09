@@ -66,6 +66,7 @@ export function Game() {
             renderItem={({ item }) => (
                 <DuoCard
                 data={item}
+                onConect={() => {}}
                 />
               )}
             style={styles.conteinerList}
