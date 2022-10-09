@@ -1,4 +1,4 @@
-import { View, Image, FlatList, SafeAreaView } from 'react-native';
+import { Image, FlatList, SafeAreaView } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import { styles } from './styles';
