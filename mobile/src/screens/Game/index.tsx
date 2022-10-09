@@ -68,6 +68,9 @@ export function Game() {
                 data={item}
                 />
               )}
+            style={styles.conteinerList}
+            contentContainerStyle={styles.contentList}
+            showsHorizontalScrollIndicator={false}
             />
         </SafeAreaView>
     </Background>
