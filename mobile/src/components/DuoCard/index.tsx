@@ -21,7 +21,6 @@ interface Props {
 }
 
 export function DuoCard({data}: Props) {
-  console.log(data)
   return (
     <View style={styles.container}>
         <DuoInfo
