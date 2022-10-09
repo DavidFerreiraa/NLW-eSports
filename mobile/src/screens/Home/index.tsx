@@ -8,7 +8,6 @@ import { Heading } from '../../components/Heading';
 import { GameCard, GameCardProps } from '../../components/GameCard';
 import { Background } from '../../components/Background';
 import { useNavigation } from '@react-navigation/native';
-import { NativeScreenNavigationContainer } from 'react-native-screens';
 
 export function Home() {
   const [games, setGames] = useState<GameCardProps[]>([])
