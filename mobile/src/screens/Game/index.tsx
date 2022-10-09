@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons'
@@ -31,7 +31,6 @@ export function Game() {
         .then((response) => response.json())
         .then(data => {
           setAds(data)
-          console.log(data[0])
         })
       }, []);
 
@@ -70,8 +69,13 @@ export function Game() {
                 />
               )}
             style={styles.conteinerList}
-            contentContainerStyle={styles.contentList}
+            contentContainerStyle={ads.length > 0? styles.contentList : styles.contentEmptyList}
             showsHorizontalScrollIndicator={false}
+            ListEmptyComponent={() => (
+              <Text style={styles.emptyListText} numberOfLines={2}>
+                Sem anúncios, {'\n'}que pena...
+              </Text>
+  )}
             />
         </SafeAreaView>
     </Background>
