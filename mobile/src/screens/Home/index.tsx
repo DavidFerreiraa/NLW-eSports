@@ -5,27 +5,18 @@ import { styles } from './styles';
 
 import LogoImg from '../../assets/logo-nlw-esports.png'
 import { Heading } from '../../components/Heading';
-import { GameCard } from '../../components/GameCard';
+import { GameCard, GameCardProps } from '../../components/GameCard';
 import { Background } from '../../components/Background';
 import { useNavigation } from '@react-navigation/native';
 import { NativeScreenNavigationContainer } from 'react-native-screens';
 
-interface Games {
-  bannerURL: string;
-  id: string;
-  title: string;
-  _count: {
-    ads: number
-  }
-}
-
 export function Home() {
-  const [games, setGames] = useState<Games[]>([])
+  const [games, setGames] = useState<GameCardProps[]>([])
 
   const navigation = useNavigation();
 
-  function handleOpenGame(){
-    navigation.navigate('game')
+  function handleOpenGame({id, title, bannerURL}: GameCardProps){
+    navigation.navigate('game', {id, title, bannerURL});
   }
 
   useEffect(() => {
@@ -52,7 +43,7 @@ export function Home() {
           renderItem={({ item }) => (
             <GameCard
             data={item}
-            onPress={handleOpenGame}
+            onPress={() => {handleOpenGame(item)}}
             />
           )}
           horizontal={true}
