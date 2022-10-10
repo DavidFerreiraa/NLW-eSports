@@ -8,14 +8,24 @@ import CreateAdBanner from "../CreateAdBanner";
 import WeekDaysBtn from "../WeekDaysBtn";
 import Input from "./Input";
 import { Games } from "../../App";
+import { useState, useEffect } from "react";
 
 interface DataProps {
   data: Games[]
 }
+
+interface CheckedDaysProps {
+  chackDays: number
+}
+
 export default function ModalForm({data}: DataProps) {
+
+    const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"] //Array contendo os dias da semana
+    const [checkDays, setCheckDays] = useState<CheckedDaysProps[]>([])
+
     return (
       <div>
-        <Dialog.Root>
+        <Dialog.Root modal={false}>
         <CreateAdBanner/>
         <Dialog.Portal>
           <Dialog.Overlay className='bg-black/60 inset-0 fixed'/>
@@ -25,7 +35,7 @@ export default function ModalForm({data}: DataProps) {
                 <div className='flex flex-col gap-2'>
                   <label htmlFor="game" className="font-semibold">Qual o game?</label>
                   <SelectPrimitive.Root>
-                    <SelectPrimitive.Trigger aria-label="Games" className='bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 items-center justify-between flex'>
+                    <SelectPrimitive.Trigger aria-label="Games" className='bg-zinc-900 py-3 px-4 rounded text-sm text-zinc-500 items-center justify-between flex'>
                       <SelectPrimitive.Value placeholder="Selecione o game que quer jogar"/>
                       <SelectPrimitive.Icon>
                         <CaretDown />
@@ -79,13 +89,9 @@ export default function ModalForm({data}: DataProps) {
                   <div className='flex flex-col gap-2'>
                     <label htmlFor="weekDays" className="font-semibold">Quando costuma jogar?</label>
                     <div className='grid grid-cols-4 gap-2'>
-                      <WeekDaysBtn weekday='S'/>
-                      <WeekDaysBtn weekday='T'/>
-                      <WeekDaysBtn weekday='Q'/>
-                      <WeekDaysBtn weekday='Q'/>
-                      <WeekDaysBtn weekday='S'/>
-                      <WeekDaysBtn weekday='D'/>
-                      <WeekDaysBtn weekday='S'/>
+                      {
+                        weekDays.map((day, index) => (<WeekDaysBtn weekday={day} key={index} position={index}/>)) //Cria um componente WeekDaysBtn para cada dia da semana
+                      }
                     </div>
                   </div>
                   <div className='flex flex-col gap-2 flex-1'>
