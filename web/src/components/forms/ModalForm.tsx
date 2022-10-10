@@ -1,11 +1,20 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { GameController } from "phosphor-react";
+import * as Checkbox from '@radix-ui/react-checkbox';
+import * as SelectPrimitive from '@radix-ui/react-select';
+
+import { GameController, Check, CaretDown, CaretUp } from "phosphor-react";
+
 import CreateAdBanner from "../CreateAdBanner";
 import WeekDaysBtn from "../WeekDaysBtn";
 import Input from "./Input";
+import { Games } from "../../App";
 
-export default function ModalForm() {
+interface DataProps {
+  data: Games[]
+}
+export default function ModalForm({data}: DataProps) {
     return (
+      <div>
         <Dialog.Root>
         <CreateAdBanner/>
         <Dialog.Portal>
@@ -15,7 +24,42 @@ export default function ModalForm() {
               <form className="mt-8 flex flex-col gap-4">
                 <div className='flex flex-col gap-2'>
                   <label htmlFor="game" className="font-semibold">Qual o game?</label>
-                  <Input id='game' placeholder='Selecione o game que quer jogar'/>
+                  <SelectPrimitive.Root>
+                    <SelectPrimitive.Trigger aria-label="Games" className='bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 items-center justify-between flex'>
+                      <SelectPrimitive.Value placeholder="Selecione o game que quer jogar"/>
+                      <SelectPrimitive.Icon>
+                        <CaretDown />
+                      </SelectPrimitive.Icon>
+                    </SelectPrimitive.Trigger>
+                    <SelectPrimitive.Portal>
+                      <SelectPrimitive.Content className="bg-zinc-900 rounded px-4 py-3 shadow-md shadow-black/40 text-white overflow-hidden">
+                        <SelectPrimitive.ScrollUpButton>
+                          <CaretUp />
+                        </SelectPrimitive.ScrollUpButton>
+                        <SelectPrimitive.Viewport>
+                          
+                          <SelectPrimitive.Group className="flex flex-col gap-2">
+                            <SelectPrimitive.Label>Games</SelectPrimitive.Label>
+                            <SelectPrimitive.Separator className='bg-zinc-800 h-1 rounded'/>
+                            {data.map((game)=>{
+                            return (
+                              <SelectPrimitive.Item value={game.title} key={game.id} className='flex justify-between hover:bg-zinc-800 px-2 rounded'>
+                                <SelectPrimitive.ItemText>
+                                  {game.title}
+                                </SelectPrimitive.ItemText>
+                                <SelectPrimitive.ItemIndicator>
+                                  <Check className='w-4 h-4 text-emerald-400'/>
+                                </SelectPrimitive.ItemIndicator>
+                              </SelectPrimitive.Item>
+                            )})}
+                          </SelectPrimitive.Group>
+                        </SelectPrimitive.Viewport>
+                        <SelectPrimitive.ScrollDownButton>
+                          <CaretDown />
+                        </SelectPrimitive.ScrollDownButton>
+                      </SelectPrimitive.Content>
+                    </SelectPrimitive.Portal>
+                  </SelectPrimitive.Root>
                 </div>
                 <div className='flex flex-col gap-2'>
                   <label htmlFor="name" className="font-semibold">Seu nome ou nickname</label>
@@ -35,13 +79,13 @@ export default function ModalForm() {
                   <div className='flex flex-col gap-2'>
                     <label htmlFor="weekDays" className="font-semibold">Quando costuma jogar?</label>
                     <div className='grid grid-cols-4 gap-2'>
-                      <WeekDaysBtn weekDay='D'/>
-                      <WeekDaysBtn weekDay='S'/>
-                      <WeekDaysBtn weekDay='T'/>
-                      <WeekDaysBtn weekDay='Q'/>
-                      <WeekDaysBtn weekDay='Q'/>
-                      <WeekDaysBtn weekDay='S'/>
-                      <WeekDaysBtn weekDay='S'/>
+                      <WeekDaysBtn weekday='S'/>
+                      <WeekDaysBtn weekday='T'/>
+                      <WeekDaysBtn weekday='Q'/>
+                      <WeekDaysBtn weekday='Q'/>
+                      <WeekDaysBtn weekday='S'/>
+                      <WeekDaysBtn weekday='D'/>
+                      <WeekDaysBtn weekday='S'/>
                     </div>
                   </div>
                   <div className='flex flex-col gap-2 flex-1'>
@@ -54,8 +98,12 @@ export default function ModalForm() {
                     </div>
                   </div>
                 </div>
-                <div className='mt-2 flex gap-2 text-sm'>
-                  <Input type="checkbox"/>
+                <div className='mt-2 flex gap-2 text-sm items-center'>
+                    <Checkbox.Root className='w-6 h-6 p-1 rounded bg-zinc-900'>
+                        <Checkbox.Indicator>
+                          <Check className='w-4 h-4 text-emerald-400'/>
+                        </Checkbox.Indicator>
+                    </Checkbox.Root>
                   Costumo usar chat de voz
                 </div>
 
@@ -72,5 +120,6 @@ export default function ModalForm() {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
+      </div>
     )
 }

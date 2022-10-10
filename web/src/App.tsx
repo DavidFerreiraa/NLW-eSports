@@ -13,7 +13,7 @@ import ModalForm from './components/forms/ModalForm'
 //JSX => JavaScript + XML (HTML)
 //Components and props
 
-interface Games {
+export interface Games {
   bannerURL: string;
   id: string;
   title: string;
@@ -51,7 +51,7 @@ function App() {
           )
         })}
       </div>
-      <ModalForm/>
+      <ModalForm data={games}/>
     </div>
   )
 }
