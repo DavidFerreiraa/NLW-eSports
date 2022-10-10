@@ -39,7 +39,8 @@ export const styles = StyleSheet.create({
   contentEmptyList: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 32
   },
   emptyListText: {
     color: '#fff',
