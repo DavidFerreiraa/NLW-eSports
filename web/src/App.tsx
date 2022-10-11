@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { GameController } from 'phosphor-react'
 import Input from './components/forms/Input'
-import WeekDaysBtn from './components/WeekDaysBtn'
+import WeekDaysBtn from './components/forms/WeekDaysBtn'
 import ModalForm from './components/forms/ModalForm'
 //JSX => JavaScript + XML (HTML)
 //Components and props
