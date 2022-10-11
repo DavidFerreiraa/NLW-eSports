@@ -16,8 +16,8 @@ interface DataProps {
 
 export default function ModalForm({data}: DataProps) {
 
-    const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"] //Array contendo os dias da semana
-    const [checkDays, setCheckDays] = useState<string[]>([])
+    const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"]
+    const [checkedDays, setCheckedDays] = useState<boolean[]>([false, false, false, false, false, false, false])
 
     return (
       <div>
@@ -87,7 +87,12 @@ export default function ModalForm({data}: DataProps) {
                     <div className='grid grid-cols-4 gap-2'>
                     {
                       weekDays.map((day, index) => (
-                      <WeekDaysBtn weekday={day} key={index} position={index}/>
+                      <WeekDaysBtn weekday={day} key={index} position={index} onClick={
+                        () => {
+                          checkedDays[index] = !checkedDays[index]
+                          setCheckedDays(checkedDays)
+                        }
+                      }/>
                       )) //Cria um componente WeekDaysBtn para cada dia da semana
                     }
                     </div>
