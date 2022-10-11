@@ -9,22 +9,44 @@ import WeekDaysBtn from "./WeekDaysBtn";
 import Input from "./Input";
 import { Games } from "../../App";
 import { FormEvent, useState } from "react";
+import axios from "axios";
 
 interface DataProps {
   data: Games[];
 }
 
 export default function ModalForm({ data }: DataProps) {
-  const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"];
 
+  const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [checkedDays, setCheckedDays] = useState<string[]>([]);
 
   function handleCreateAd(event: FormEvent) {
     event.preventDefault(); //Previne que o form redirecione ou atualize a tela do usuário
 
     const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-    console.log(data)
+    const dataForm = Object.fromEntries(formData);
+
+    function postarGame(game: Games, dataForm: any, checkedDays: string[]) {
+      try{
+        axios.post(`http://localhost:3333/games/${game.id}/ads`), {
+          "nome": dataForm.name,
+          "yearsPlaying": Number(dataForm.years),
+          "discord": dataForm.discord,
+          "weekDays": checkedDays.map(Number),
+          "hoursStart": dataForm.hoursStart,
+          "hourEnd": dataForm.hoursEnd,
+          "useVoiceChannel": dataForm.useVoiceChannel === "on"? true : false
+        }
+        alert("Anúncio postado com sucesso!!!")
+      } catch (err) {
+        alert("Ops, houve algo de errado")
+        console.log(err)
+      }
+    }
+    data.map((game)=> {
+      game.title.indexOf(((dataForm.game).toString())) === -1? null : postarGame(game, dataForm, checkedDays)
+    })
+
   }
 
   return (

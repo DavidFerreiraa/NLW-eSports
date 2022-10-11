@@ -2,14 +2,9 @@ import './styles/main.css'
 import logoImg from './assets/Logo-nlw-esports.svg'
 import GameBanner from './components/GameBanner'
 
-import CreateAdBanner from './components/CreateAdBanner'
-
 import { useEffect, useState } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
-import { GameController } from 'phosphor-react'
-import Input from './components/forms/Input'
-import WeekDaysBtn from './components/forms/WeekDaysBtn'
 import ModalForm from './components/forms/ModalForm'
+import axios from 'axios'
 //JSX => JavaScript + XML (HTML)
 //Components and props
 
@@ -26,11 +21,8 @@ function App() {
   const [games, setGames] = useState<Games[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:3333/games')
-    .then(response => response.json())
-    .then(data => {
-        setGames(data)
-      })
+    axios('http://localhost:3333/games')
+    .then(response => setGames(response.data))
   }, [])
 
   return(
