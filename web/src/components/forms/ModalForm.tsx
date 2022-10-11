@@ -8,20 +8,16 @@ import CreateAdBanner from "../CreateAdBanner";
 import WeekDaysBtn from "../WeekDaysBtn";
 import Input from "./Input";
 import { Games } from "../../App";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface DataProps {
   data: Games[]
 }
 
-interface CheckedDaysProps {
-  chackDays: number
-}
-
 export default function ModalForm({data}: DataProps) {
 
     const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"] //Array contendo os dias da semana
-    const [checkDays, setCheckDays] = useState<CheckedDaysProps[]>([])
+    const [checkDays, setCheckDays] = useState<string[]>([])
 
     return (
       <div>
@@ -89,9 +85,11 @@ export default function ModalForm({data}: DataProps) {
                   <div className='flex flex-col gap-2'>
                     <label htmlFor="weekDays" className="font-semibold">Quando costuma jogar?</label>
                     <div className='grid grid-cols-4 gap-2'>
-                      {
-                        weekDays.map((day, index) => (<WeekDaysBtn weekday={day} key={index} position={index}/>)) //Cria um componente WeekDaysBtn para cada dia da semana
-                      }
+                    {
+                      weekDays.map((day, index) => (
+                      <WeekDaysBtn weekday={day} key={index} position={index}/>
+                      )) //Cria um componente WeekDaysBtn para cada dia da semana
+                    }
                     </div>
                   </div>
                   <div className='flex flex-col gap-2 flex-1'>
