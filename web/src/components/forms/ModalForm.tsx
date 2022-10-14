@@ -37,7 +37,7 @@ export default function ModalForm({ data }: DataProps) {
       dataForm: any,
       checkedDays: string[]
     ) {
-      console.log(dataForm.hoursStart)
+      console.log(dataForm.hoursStart);
       if (dataForm.name == "") {
         console.log("Verifique todos os campos");
         return;
@@ -50,14 +50,14 @@ export default function ModalForm({ data }: DataProps) {
       } else if (checkedDays.length === 0) {
         console.log("Verifique todos os campos");
         return;
-      } else if (dataForm.hoursStart === '') {
+      } else if (dataForm.hoursStart === "") {
         console.log("Verifique todos os campos");
         return;
-      } else if (dataForm.hoursEnd === '') {
+      } else if (dataForm.hoursEnd === "") {
         console.log("Verifique todos os campos");
         return;
       }
-      
+
       try {
         await axios.post(`http://localhost:3333/games/${game.id}/ads`, {
           name: dataForm.name,
