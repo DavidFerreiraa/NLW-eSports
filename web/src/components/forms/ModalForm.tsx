@@ -1,8 +1,15 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as SelectPrimitive from "@radix-ui/react-select";
+import * as Toast from "@radix-ui/react-toast";
 
-import { GameController, Check, CaretDown, CaretUp } from "phosphor-react";
+import {
+  GameController,
+  Check,
+  CaretDown,
+  CaretUp,
+  XCircle,
+} from "phosphor-react";
 
 import CreateAdBanner from "../CreateAdBanner";
 import WeekDaysBtn from "./WeekDaysBtn";
@@ -16,7 +23,6 @@ interface DataProps {
 }
 
 export default function ModalForm({ data }: DataProps) {
-
   const weekDays: string[] = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [checkedDays, setCheckedDays] = useState<string[]>([]);
 
@@ -26,9 +32,33 @@ export default function ModalForm({ data }: DataProps) {
     const formData = new FormData(event.target as HTMLFormElement);
     const dataForm = Object.fromEntries(formData);
 
-    async function postarGame(game: Games, dataForm: any, checkedDays: string[]) {
-
-      try{
+    async function postarGame(
+      game: Games,
+      dataForm: any,
+      checkedDays: string[]
+    ) {
+      console.log(dataForm.hoursStart)
+      if (dataForm.name == "") {
+        console.log("Verifique todos os campos");
+        return;
+      } else if (dataForm.years < 0) {
+        console.log("Verifique todos os campos");
+        return;
+      } else if (dataForm.discord != "") {
+        console.log("Verifique todos os campos");
+        return;
+      } else if (checkedDays.length === 0) {
+        console.log("Verifique todos os campos");
+        return;
+      } else if (dataForm.hoursStart === '') {
+        console.log("Verifique todos os campos");
+        return;
+      } else if (dataForm.hoursEnd === '') {
+        console.log("Verifique todos os campos");
+        return;
+      }
+      
+      try {
         await axios.post(`http://localhost:3333/games/${game.id}/ads`, {
           name: dataForm.name,
           yearsPlaying: Number(dataForm.years),
@@ -36,18 +66,19 @@ export default function ModalForm({ data }: DataProps) {
           weekDays: checkedDays.map(Number),
           hoursStart: dataForm.hoursStart,
           hourEnd: dataForm.hoursEnd,
-          useVoiceChannel: dataForm.useVoiceChannel === "on"? true : false
-        })
-        alert("Anúncio postado com sucesso!!!")
+          useVoiceChannel: dataForm.useVoiceChannel === "on" ? true : false,
+        });
+        alert("Anúncio postado com sucesso!!!");
       } catch (err) {
-        alert("Ops, houve algo de errado")
-        console.log(err)
+        alert("Ops, houve algo de errado");
+        console.log(err);
       }
     }
-    data.map((game)=> {
-      game.title.indexOf(((dataForm.game).toString())) === -1? null : postarGame(game, dataForm, checkedDays)
-    })
-
+    data.map((game) => {
+      game.title.indexOf(dataForm.game.toString()) === -1
+        ? null
+        : postarGame(game, dataForm, checkedDays);
+    });
   }
 
   return (
@@ -161,9 +192,14 @@ export default function ModalForm({ data }: DataProps) {
                           key={index}
                           position={index}
                           onClick={() => {
-                            checkedDays.includes(index.toString())? checkedDays.splice(checkedDays.indexOf(index.toString()), 1) : checkedDays.push(index.toString());
+                            checkedDays.includes(index.toString())
+                              ? checkedDays.splice(
+                                  checkedDays.indexOf(index.toString()),
+                                  1
+                                )
+                              : checkedDays.push(index.toString());
                             setCheckedDays(checkedDays);
-                            console.log(checkedDays)
+                            console.log(checkedDays);
                           }}
                         />
                       )) //Cria um componente WeekDaysBtn para cada dia da semana
@@ -193,7 +229,10 @@ export default function ModalForm({ data }: DataProps) {
                 </div>
               </div>
               <label className="mt-2 flex gap-2 text-sm items-center">
-                <Checkbox.Root className="w-6 h-6 p-1 rounded bg-zinc-900" name="useVoiceChannel">
+                <Checkbox.Root
+                  className="w-6 h-6 p-1 rounded bg-zinc-900"
+                  name="useVoiceChannel"
+                >
                   <Checkbox.Indicator>
                     <Check className="w-4 h-4 text-emerald-400" />
                   </Checkbox.Indicator>
