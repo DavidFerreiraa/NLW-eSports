@@ -26,17 +26,18 @@ export default function ModalForm({ data }: DataProps) {
     const formData = new FormData(event.target as HTMLFormElement);
     const dataForm = Object.fromEntries(formData);
 
-    function postarGame(game: Games, dataForm: any, checkedDays: string[]) {
+    async function postarGame(game: Games, dataForm: any, checkedDays: string[]) {
+
       try{
-        axios.post(`http://localhost:3333/games/${game.id}/ads`), {
-          nome: dataForm.name,
+        await axios.post(`http://localhost:3333/games/${game.id}/ads`, {
+          name: dataForm.name,
           yearsPlaying: Number(dataForm.years),
           discord: dataForm.discord,
           weekDays: checkedDays.map(Number),
           hoursStart: dataForm.hoursStart,
           hourEnd: dataForm.hoursEnd,
           useVoiceChannel: dataForm.useVoiceChannel === "on"? true : false
-        }
+        })
         alert("Anúncio postado com sucesso!!!")
       } catch (err) {
         alert("Ops, houve algo de errado")
