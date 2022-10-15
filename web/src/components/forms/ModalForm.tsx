@@ -1,18 +1,19 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import * as Toast from "@radix-ui/react-toast";
+import { toast, ToastContainer } from 'react-toastify';
 
 import {
   GameController,
   Check,
   CaretDown,
   CaretUp,
-  XCircle,
 } from "phosphor-react";
+import 'react-toastify/dist/ReactToastify.css';
 
 import CreateAdBanner from "../CreateAdBanner";
 import WeekDaysBtn from "./WeekDaysBtn";
+import Verification from "../../utils/verification";
 import Input from "./Input";
 import { Games } from "../../App";
 import { FormEvent, useState } from "react";
@@ -30,31 +31,16 @@ export default function ModalForm({ data }: DataProps) {
     event.preventDefault(); //Previne que o form redirecione ou atualize a tela do usuário
 
     const formData = new FormData(event.target as HTMLFormElement);
-    const dataForm = Object.fromEntries(formData);
+    const dataForm = (Object.fromEntries(formData));
 
     async function postarGame(
       game: Games,
       dataForm: any,
       checkedDays: string[]
     ) {
-      console.log(dataForm.hoursStart);
-      if (dataForm.name == "") {
-        console.log("Verifique todos os campos");
-        return;
-      } else if (dataForm.years < 0) {
-        console.log("Verifique todos os campos");
-        return;
-      } else if (dataForm.discord != "") {
-        console.log("Verifique todos os campos");
-        return;
-      } else if (checkedDays.length === 0) {
-        console.log("Verifique todos os campos");
-        return;
-      } else if (dataForm.hoursStart === "") {
-        console.log("Verifique todos os campos");
-        return;
-      } else if (dataForm.hoursEnd === "") {
-        console.log("Verifique todos os campos");
+
+      if (Verification(dataForm, ["", 0], checkedDays) === false) {
+        toast.warn('verifique todos os campos', {containerId: 'Sucess'})
         return;
       }
 
@@ -68,7 +54,7 @@ export default function ModalForm({ data }: DataProps) {
           hourEnd: dataForm.hoursEnd,
           useVoiceChannel: dataForm.useVoiceChannel === "on" ? true : false,
         });
-        alert("Anúncio postado com sucesso!!!");
+        toast.success("Anúncio postado com sucesso!!!", {containerId: 'Fail'});
       } catch (err) {
         alert("Ops, houve algo de errado");
         console.log(err);
@@ -165,6 +151,7 @@ export default function ModalForm({ data }: DataProps) {
                     name="years"
                     id="years"
                     type="number"
+                    pattern="[0-9]"
                     placeholder="Tudo bem ser ZERO"
                   />
                 </div>

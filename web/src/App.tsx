@@ -5,6 +5,7 @@ import GameBanner from './components/GameBanner'
 import { useEffect, useState } from 'react'
 import ModalForm from './components/forms/ModalForm'
 import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
 //JSX => JavaScript + XML (HTML)
 //Components and props
 
@@ -44,6 +45,8 @@ function App() {
         })}
       </div>
       <ModalForm data={games}/>
+      <ToastContainer enableMultiContainer containerId={'Fail'}/>
+      <ToastContainer enableMultiContainer containerId={'Sucess'}/>
     </div>
   )
 }
