@@ -46,7 +46,7 @@ export function DuoCard({data, onConect}: Props) {
           size={20}
           color={THEME.COLORS.TEXT}
           />
-          <Text style={styles.buttonTitle}>
+          <Text style={styles.buttonTitle} onPress={onConect}>
             Conectar
           </Text>
         </TouchableOpacity>

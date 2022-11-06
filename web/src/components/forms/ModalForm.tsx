@@ -43,7 +43,7 @@ export default function ModalForm({ data }: DataProps) {
         toast.warn('verifique todos os campos', {containerId: 'Sucess'})
         return;
       }
-
+        
       try {
         await axios.post(`http://localhost:3333/games/${game.id}/ads`, {
           name: dataForm.name,
