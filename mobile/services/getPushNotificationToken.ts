@@ -1,4 +1,5 @@
 import * as Notifications from 'expo-notifications';
+import axios from 'axios';
 
 export async function getPushNotificationToken(){
     const { granted } = await Notifications.getPermissionsAsync();
@@ -10,6 +11,12 @@ export async function getPushNotificationToken(){
     else if (granted){
         const pushToken = await Notifications.getExpoPushTokenAsync();
         console.log(pushToken.data);
+        
+        await axios.post("http://192.168.1.111:3333/notifications", {
+            token: pushToken.data
+        })
+        .catch((err)=> console.log(err))
+
         return pushToken.data;
     }
 

@@ -31,3 +31,8 @@ model Ad {
 
   game Game @relation(fields: [gameId], references: [id])
 }
+
+model NotificationTokens {
+  id    String @id @default(uuid())
+  token String @unique
+}

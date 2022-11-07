@@ -73,7 +73,7 @@ app.get('/games/:id/ads', async (request, response) => {
         }
     })
 
-    return response.json(ads.map(ads =>  {
+    return response.json(ads.map((ads: { weekDays: string; hoursStart: number; hourEnd: number; }) =>  {
         return {
             ...ads,
             weekDays: ads.weekDays.split(','),
@@ -98,6 +98,30 @@ app.get('/ads/:id/discord', async (request, response) => {
     return response.json({
         discord: ad.discord,
     })
+})
+
+app.post("/notifications", async (request, response) => {
+    console.log("Entrou")
+    const body = request.body;
+    console.log(body)
+
+    const tokenAlredyExists = await prisma.notificationTokens.findUnique({
+        where: {
+            token: body.token
+        }
+    })
+
+    if (tokenAlredyExists) {
+        return
+    }
+
+    const allToken = await prisma.notificationTokens.create({
+        data: {
+            token: body.token
+        }
+    })
+
+    return response.status(201).json(allToken)
 })
 
 app.listen(3333)
