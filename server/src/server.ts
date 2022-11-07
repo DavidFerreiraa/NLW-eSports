@@ -131,7 +131,7 @@ app.get('/ads/:id/discord', async (request, response) => {
 })
 
 app.post("/notifications", async (request, response) => {
-    
+
     const body = request.body;
 
     const tokenAlredyExists = await prisma.notificationTokens.findUnique({
@@ -141,7 +141,7 @@ app.post("/notifications", async (request, response) => {
     })
 
     if (tokenAlredyExists) {
-        return
+        return response.status(409)
     }
 
     const allToken = await prisma.notificationTokens.create({
