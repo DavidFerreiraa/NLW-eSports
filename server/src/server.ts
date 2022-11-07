@@ -5,6 +5,8 @@ import { PrismaClient } from '@prisma/client';
 import { covertStringHourToMinute } from './utils/covert-stringHours-to-minutes';
 import convertMinutesToHourString from './utils/convert-minutes-to-hour-string';
 
+import fetch from 'node-fetch';
+
 const app = express();
 app.use(express.json())
 app.use(cors()) //Defina aqui quais domínios poderão acessar o backend usando {origin: <dominio>}
@@ -46,6 +48,34 @@ app.post('/games/:gameId/ads', async (request, response) => {
             hourEnd: covertStringHourToMinute(body.hourEnd),
             useVoiceChannel: body.useVoiceChannel
         },
+    })
+
+    const tokens = await prisma.notificationTokens.findMany({
+        select: {
+            token: true
+        }
+    })
+
+    tokens.map(async (token) => {
+        const notificationMessage = {
+            to: token.token,
+            sound: "default",
+            title: "Vamos jogar?",
+            body: "Um usuário adicionou um anúncio!"
+            
+        }
+        console.log(token.token)
+
+        await fetch("https://exp.host/--/api/v2/push/send", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Accept-encoding': 'gzip, deflate',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(notificationMessage)
+        })
+        .then()
     })
 
     return response.status(201).json(ad)
